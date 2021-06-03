@@ -37,19 +37,19 @@ function Loading() {
 }
 
 function Gallery(props) {
-  const { urls } = props;
-  if (urls == null) {
+  const { url } = props;
+  if (url == null) {
     return <Loading />;
   }
   return (
     <div className="columns is-vcentered is-multiline">
-      {urls.map((url) => {
-        return (
-          <div key={url} className="column is-3">
-            <Image src={url} />
-          </div>
-        );
-      })}
+      {/* {urls.map((url) => {
+        return ( */}
+      <div key={url} className="column is-3">
+        <Image src={url} />
+      </div>
+      {/* );
+      })} */}
     </div>
   );
 }
@@ -57,14 +57,15 @@ function Gallery(props) {
 function Form(props) {
   function handleSubmit(event) {
     event.preventDefault();
-    const { number } = event.target.elements;
-    props.onFormSubmit(number.value);
+    // const { number } = event.target.elements;
+    // props.onFormSubmit(number.value);
+    props.onFormSubmit();
   }
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className="field has-addons">
-          <div className="control is-expanded">
+          {/* <div className="control is-expanded">
             <div className="select is-halfwidth">
               <select name="number">
                 <option value="1">1</option>
@@ -74,7 +75,7 @@ function Form(props) {
                 <option value="5">5</option>
               </select>
             </div>
-          </div>
+          </div> */}
           <div className="control">
             <button type="submit" className="button is-black">
               🦊
@@ -87,15 +88,16 @@ function Form(props) {
 }
 
 function Main() {
-  const [urls, setUrls] = useState(null);
+  const [url, setUrl] = useState(null);
   useEffect(() => {
-    fetchImages().then((urls) => {
-      setUrls(urls);
+    fetchImages().then((url) => {
+      console.log(url);
+      setUrl(url.image);
     });
   }, []);
-  function reloadImages(number) {
-    fetchImages().then((urls) => {
-      setUrls(urls);
+  function reloadImages() {
+    fetchImages().then((url) => {
+      setUrl(url.image);
     });
   }
 
@@ -108,7 +110,7 @@ function Main() {
       </section>
       <section className="section">
         <div className="container">
-          <Gallery urls={urls} />
+          <Gallery url={url} />
         </div>
       </section>
     </main>
@@ -119,9 +121,9 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="content has-text-centered">
-        <p>Dog images are retrieved from Dog API</p>
+        <p>FOx images are retrieved from RandomFox</p>
         <p>
-          <a href="https://dog.ceo/dog-api/about">Donate to Dog API</a>
+          <a href="https://randomfox.ca/?i=113">Donate to  RandomFox</a>
         </p>
       </div>
     </footer>
